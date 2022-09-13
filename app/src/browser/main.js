@@ -21,10 +21,17 @@ console.inspect = function consoleInspect(val) {
 const { app, session } = require('electron');
 const path = require('path');
 const mkdirp = require('mkdirp');
+const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
 
 if (typeof process.setFdLimit === 'function') {
   process.setFdLimit(1024);
 }
+
+app.whenReady().then(() => {
+  installExtension(REDUX_DEVTOOLS)
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((err) => console.log('An error occurred: ', err));
+});
 
 const setupConfigDir = args => {
   let dirname = 'Mailspring';

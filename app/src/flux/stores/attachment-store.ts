@@ -14,6 +14,7 @@ import {
   canPossiblyPreviewExtension,
   displayQuickPreviewWindow,
 } from '../../quickpreview';
+import { DateTime } from 'luxon';
 
 Promise.promisifyAll(_fs);
 const fs = _fs as any;
@@ -43,6 +44,7 @@ class AttachmentStore extends MailspringStore {
     this.listenTo(Actions.fetchFile, this._fetch);
     this.listenTo(Actions.fetchAndOpenFile, this._fetchAndOpen);
     this.listenTo(Actions.fetchAndSaveFile, this._fetchAndSave);
+    this.listenTo(Actions.fetchAndDownloadFile, this._fetchAndDownload);
     this.listenTo(Actions.fetchAndSaveAllFiles, this._fetchAndSaveAll);
     this.listenTo(Actions.quickPreviewFile, this._quickPreviewFile);
 
@@ -175,6 +177,21 @@ class AttachmentStore extends MailspringStore {
     });
   };
 
+  _fetchAndDownload = file => {
+    const dt = DateTime.now();
+    const fileNamePrefix = dt.toFormat('yyyy-LL-dd_HH.mm_ss.SSS_');
+    const updatedFileName = fileNamePrefix + file.filename
+
+    const savePath = '/Users/joanna/Downloads/' + updatedFileName;
+
+    this._prepareAndResolveFilePath(file)
+    .then(filePath => this._writeToExternalPath(filePath, savePath))
+    .catch(this._catchFSErrors)
+    .catch(error => {
+      this._presentError({ file, error });
+    });
+  };
+
   _fetchAndSave = file => {
     const defaultPath = this._defaultSavePath(file);
     const defaultExtension = path.extname(defaultPath);
@@ -191,6 +208,8 @@ class AttachmentStore extends MailspringStore {
       if (didLoseExtension) {
         actualSavePath += defaultExtension;
       }
+      console.log(2222, savePath);
+      console.log(3333333, newDownloadDirectory);
 
       this._prepareAndResolveFilePath(file)
         .then(filePath => this._writeToExternalPath(filePath, actualSavePath))

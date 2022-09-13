@@ -475,6 +475,7 @@ export const removeAttachment = create('removeAttachment', ActionScopeWindow);
 export const fetchBodies = create('fetchBodies', ActionScopeMainWindow);
 export const fetchAndOpenFile = create('fetchAndOpenFile', ActionScopeWindow);
 export const fetchAndSaveFile = create('fetchAndSaveFile', ActionScopeWindow);
+export const fetchAndDownloadFile = create('fetchAndDownloadFile', ActionScopeWindow);
 export const fetchAndSaveAllFiles = create('fetchAndSaveAllFiles', ActionScopeWindow);
 export const fetchFile = create('fetchFile', ActionScopeWindow);
 export const quickPreviewFile = create('quickPreviewFile', ActionScopeWindow);
