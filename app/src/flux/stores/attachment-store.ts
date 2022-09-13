@@ -208,8 +208,6 @@ class AttachmentStore extends MailspringStore {
       if (didLoseExtension) {
         actualSavePath += defaultExtension;
       }
-      console.log(2222, savePath);
-      console.log(3333333, newDownloadDirectory);
 
       this._prepareAndResolveFilePath(file)
         .then(filePath => this._writeToExternalPath(filePath, actualSavePath))

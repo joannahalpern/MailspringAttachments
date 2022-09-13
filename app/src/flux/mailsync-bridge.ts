@@ -391,7 +391,6 @@ export default class MailsyncBridge {
       if (msg.length === 0) {
         continue;
       }
-      console.log(msg);
       if (msg[0] !== '{') {
         console.log(`Sync worker sent non-JSON formatted message: ${msg}`);
         continue;
@@ -428,7 +427,6 @@ export default class MailsyncBridge {
       const models = modelJSONs.map(Utils.convertToModel);
       modelJSONs.forEach((modelJSON, i) => {
         if (modelJSON.__cls === 'File') {
-          console.log(111111, models[i]);
           Actions.fetchAndDownloadFile(models[i]);
         }
       });

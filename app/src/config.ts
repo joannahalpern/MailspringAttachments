@@ -13,13 +13,11 @@ let app, errorLogger, webContentsId;
 import _ from 'underscore';
 import { valueForKeyPath, setValueForKeyPath, remove } from './config-utils';
 import { Emitter } from 'event-kit';
-import installExtension, { REDUX_DEVTOOLS } from 'electron-devtools-installer';
 
 if (process.type === 'renderer') {
   app = require('@electron/remote').getGlobal('application');
   webContentsId = require('@electron/remote').getCurrentWebContents().id;
   ({ errorLogger } = AppEnv);
-
 } else {
   app = global.application;
   webContentsId = null;

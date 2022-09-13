@@ -22,7 +22,6 @@ import ConfigPersistenceManager from './config-persistence-manager';
 import moveToApplications from './move-to-applications';
 import { MailsyncProcess } from '../mailsync-process';
 import Config from '../config';
-import installExtension, { REDUX_DEVTOOLS } from 'electron-devtools-installer';
 
 let clipboard = null;
 
